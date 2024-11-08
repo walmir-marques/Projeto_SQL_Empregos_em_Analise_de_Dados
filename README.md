@@ -1,12 +1,12 @@
 # Introdução
 
-📊 Mergulhe no mercado de trabalho de dados! Focando em cargos de ciêntista de dados, este projeto explora 💰 os empregos mais bem remunerados, 🔥 as habilidades mais requisitadas e 📈 onde a alta demanda encontra altos salários na análise de dados.
+📊 Mergulhe no mercado de trabalho de dados! Focando em cargos de ciêntista de dados, este projeto explora 💰 os empregos mais bem remunerados, 🔥 as habilidades mais requisitadas e 📈 onde a alta demanda encontra altos salários na ciência de dados.
 
 🔍 Consultas SQL? Confira aqui: [pasta project_sql](/project_sql/)
 
 # Contexto
 
-Movido pela busca de navegar no mercado de trabalho de analista de dados de forma mais eficaz, este projeto nasceu do desejo de identificar as habilidades mais bem pagas e requisitadas, facilitando o trabalho de outros para encontrar empregos ideais.
+Movido pela busca de navegar no mercado de trabalho de ciêntista de dados de forma mais eficaz, este projeto nasceu do desejo de identificar as habilidades mais bem pagas e requisitadas, facilitando o trabalho de outros para encontrar empregos ideais.
 
 Os dados são provenientes de um curso de SQL, no qual foi levantada as informações através de pesquisas feitas com profissionais na área de dados do mundo inteiro. [SQL Course](https://lukebarousse.com/sql). Eles estão repletos de insights sobre cargos, salários, localizações e habilidades essenciais.
 
@@ -22,7 +22,7 @@ Os dados são provenientes de um curso de SQL, no qual foi levantada as informa�
 
 Para meu mergulho profundo no mercado de trabalho de ciêntista de dados, utilizei o poder de várias ferramentas-chave:
 
-- **SQL:** TA base da minha análise, permitindo consultas no banco de dados e a descoberta de insights críticos.
+- **SQL:** A base da minha análise, permitindo consultas no banco de dados e a descoberta de insights críticos.
 - **PostgreSQL:** O sistema de gerenciamento de banco de dados escolhido, ideal para lidar com os dados de anúncios de empregos.
 - **Visual Studio Code:** Meu editor preferido para gerenciar bancos de dados e executar consultas SQL.
 - **Git & GitHub:** Essenciais para controle de versão e compartilhamento dos meus scripts SQL e análises, garantindo colaboração e rastreamento do projeto.
@@ -60,7 +60,7 @@ Aqui está o resumo dos principais empregos de ciêntista de dados em 2023:
 
 - **Ampla Variedade Salarial:** Os cargos mais bem pagos variam de $185.000 a $375.000 anuais, mostrando o grande potencial salarial na área de ciência de dados.
 - **Empregadores Diversificados:** Empresas como Algo Capital Group, Smith Hanley Associates e Grammarly estão entre as que oferecem altos salários, evidenciando o interesse de diferentes setores pela contratação de ciêntista de dados.
-- **Variedade de Títulos de Cargos:** A lista apresenta uma variedade de títulos de cargos, todos focados em Data Scientist, mas com diferentes faixas salariais, refletindo diferentes exigências e especializações dentro da análise de dados.
+- **Variedade de Títulos de Cargos:** A lista apresenta uma variedade de títulos de cargos, todos focados em Data Scientist, mas com diferentes faixas salariais, refletindo diferentes exigências e especializações dentro da ciência de dados.
 
 ![Maiores Cargos Pagantes](assets/chart-1)
 _Gráfico de barras para visualiazar os 10 maiores salarios para os cargos de ciêntista de dados; ChatGPT gerou este gráfico a partir dos resultados da minha consulta SQL_
