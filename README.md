@@ -65,63 +65,65 @@ Aqui está o resumo dos principais empregos de ciêntista de dados em 2023:
 ![Maiores Cargos Pagantes](assets/chart-1)
 _Gráfico de barras para visualiazar os 10 maiores salarios para os cargos de ciêntista de dados; ChatGPT gerou este gráfico a partir dos resultados da minha consulta SQL_
 
-### 2. Skills for Top Paying Jobs
+### 2. Habilidades para os Trabalhos com Melhores Salários
 
-To understand what skills are required for the top-paying jobs, I joined the job postings with the skills data, providing insights into what employers value for high-compensation roles.
+Para entender quais habilidades são necessárias para os trabalhos com melhores salários, eu combinei as publicações de vagas com os dados de habilidades, oferecendo insights sobre o que os empregadores valorizam em cargos de alta remuneração.
 
 ```sql
 WITH top_paying_jobs AS (
-    SELECT
-        job_id,
-        job_title,
-        salary_year_avg,
-        name AS company_name
-    FROM
-        job_postings_fact
-    LEFT JOIN company_dim ON job_postings_fact.company_id = company_dim.company_id
-    WHERE
-        job_title_short = 'Data Analyst' AND
-        job_location = 'Anywhere' AND
-        salary_year_avg IS NOT NULL
-    ORDER BY
-        salary_year_avg DESC
-    LIMIT 10
+  SELECT
+      job_id,
+      job_title,
+      salary_year_avg,
+      job_posted_date,
+      company_dim.name as company_name
+  FROM
+      job_postings_fact
+  LEFT JOIN company_dim on job_postings_fact.company_id = company_dim.company_id
+  WHERE
+      job_title = 'Data Scientist' AND
+      job_location = 'Anywhere' AND
+      salary_year_avg IS NOT NULL
+  ORDER BY 
+      salary_year_avg DESC
+  LIMIT 10
 )
 
-SELECT
-    top_paying_jobs.*,
-    skills
+SELECT 
+  top_paying_jobs.*,
+  skills
 FROM top_paying_jobs
 INNER JOIN skills_job_dim ON top_paying_jobs.job_id = skills_job_dim.job_id
 INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
 ORDER BY
-    salary_year_avg DESC;
+  salary_year_avg DESC
 ```
 
-Here's the breakdown of the most demanded skills for the top 10 highest paying data analyst jobs in 2023:
+A seguir está a divisão das habilidades mais demandadas para os 10 cargos de ciêntista de dados com os melhores salários em 2023:
 
-- **SQL** is leading with a bold count of 8.
-- **Python** follows closely with a bold count of 7.
-- **Tableau** is also highly sought after, with a bold count of 6.
-  Other skills like **R**, **Snowflake**, **Pandas**, and **Excel** show varying degrees of demand.
+- **Python** lidera as demandas, aparecendo em 10 ocorrências.
+- **AWS**, **R**, **Spark**, e **Tableau** são habilidades com 3 ocorrências cada, mostrando uma demanda consistente nessas áreas.
+- **Scala**, **MongoDB**, **Hadoop**, **Cassandra**, e **Java** aparecem em 2 ocorrências cada, representando habilidades ainda bastante relevantes.
+  Outras habilidades, como **Airflow**, **JavaScript**, **HTML**, **VBA**, **PHP**, **TensorFlow**, **Scikit-learn**, **Excel**, **PowerPoint**, **Snowflake**, **Sheets**, e **Databricks**, apresentam 1 ocorrência cada, indicando uma demanda mais específica ou nichada.
 
-![Top Paying Skills](assets/2_top_paying_roles_skills.png)
-_Bar graph visualizing the count of skills for the top 10 paying jobs for data analysts; ChatGPT generated this graph from my SQL query results_
 
-### 3. In-Demand Skills for Data Analysts
+![Skills maiores remuneradas](assets/chart-2)
+_Gráfico de barras de contagem das skills mais demandadas para os 10 cargos com maiores salários de Ciêntista de Dados. Esse gráfico foi gerado usando matplotlib_
 
-This query helped identify the skills most frequently requested in job postings, directing focus to areas with high demand.
+### 3. Habilidades em Alta para ciêntista de Dados.
+
+Esta consulta ajudou a identificar as habilidades mais frequentemente solicitadas nas vagas de emprego, direcionando o foco para áreas com alta demanda.
 
 ```sql
-SELECT
+SELECT 
     skills,
     COUNT(skills_job_dim.job_id) AS demand_count
 FROM job_postings_fact
 INNER JOIN skills_job_dim ON job_postings_fact.job_id = skills_job_dim.job_id
 INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
 WHERE
-    job_title_short = 'Data Analyst'
-    AND job_work_from_home = True
+    job_title_short = 'Data Scientist' 
+    AND job_work_from_home = True 
 GROUP BY
     skills
 ORDER BY
@@ -129,24 +131,26 @@ ORDER BY
 LIMIT 5;
 ```
 
-Here's the breakdown of the most demanded skills for data analysts in 2023
+Aqui está a divisão das habilidades mais demandadas para ciêntista de dados em 2023.
 
-- **SQL** and **Excel** remain fundamental, emphasizing the need for strong foundational skills in data processing and spreadsheet manipulation.
-- **Programming** and **Visualization Tools** like **Python**, **Tableau**, and **Power BI** are essential, pointing towards the increasing importance of technical skills in data storytelling and decision support.
+- **Python** e **SQL** continuam sendo fundamentais, destacando a necessidade de habilidades sólidas em programação e consulta de bancos de dados.
+- Ferramentas de Visualização, como **Tableau**, são essenciais, refletindo a crescente importância de habilidades técnicas na apresentação e interpretação de dados.
+- **R** também se destaca, apontando para a demanda por habilidades avançadas em análise estatística e modelagem de dados.
+- **AWS** emerge como uma habilidade relevante, sublinhando a crescente necessidade de profissionais com experiência em ambientes de computação em nuvem.
 
 | Skills   | Demand Count |
 | -------- | ------------ |
-| SQL      | 7291         |
-| Excel    | 4611         |
-| Python   | 4330         |
-| Tableau  | 3745         |
-| Power BI | 2609         |
+| Python   | 10390        |
+| SQL      | 7488         |
+| R        | 4674         |
+| AWS      | 2593         |
+| Tableau  | 2458         |
 
-_Table of the demand for the top 5 skills in data analyst job postings_
+_Tabela de demanda das 5 habilidades requeridas para empregos em Ciência de Dados._
 
-### 4. Skills Based on Salary
+### 4. Habilidades baseadas no salário. 
 
-Exploring the average salaries associated with different skills revealed which skills are the highest paying.
+Explorar os salários médios associados a diferentes habilidades revelou quais são as habilidades mais bem remuneradas.
 
 ```sql
 SELECT
@@ -166,33 +170,38 @@ ORDER BY
 LIMIT 25;
 ```
 
-Here's a breakdown of the results for top paying skills for Data Analysts:
+Aqui está a divisão dos resultados das habilidades mais bem remuneradas para Ciêntista de Dados:
 
-- **High Demand for Big Data & ML Skills:** Top salaries are commanded by analysts skilled in big data technologies (PySpark, Couchbase), machine learning tools (DataRobot, Jupyter), and Python libraries (Pandas, NumPy), reflecting the industry's high valuation of data processing and predictive modeling capabilities.
-- **Software Development & Deployment Proficiency:** Knowledge in development and deployment tools (GitLab, Kubernetes, Airflow) indicates a lucrative crossover between data analysis and engineering, with a premium on skills that facilitate automation and efficient data pipeline management.
-- **Cloud Computing Expertise:** Familiarity with cloud and data engineering tools (Elasticsearch, Databricks, GCP) underscores the growing importance of cloud-based analytics environments, suggesting that cloud proficiency significantly boosts earning potential in data analytics.
+
+
+- **Habilidades Altamente Remuneradas em Tecnologias de Nicho:** Os salários mais altos são comandados por analistas com habilidades em tecnologias de nicho como **Neo4j**, **Airtable** e **Watson**, demonstrando a alta demanda do mercado por especialistas em ferramentas avançadas de gerenciamento de dados e inteligência artificial, com foco em tecnologias de banco de dados e plataformas de aprendizado de máquina.
+- **Desenvolvimento de Software e Linguagens de Programação:** O domínio de linguagens de programação como **Lua**, **Clojure** e **Objective-C** reflete o valor atribuído a habilidades versáteis de desenvolvimento de software. Essas linguagens são frequentemente usadas para programação de sistemas e aplicações especializadas, com grande potencial de ganhos para analistas que dominam essas áreas.
+- ****Tecnologias Emergentes e Ferramentas de Automação:**** Habilidades em tecnologias emergentes como **RShiny** e **Solidity** destacam a crescente importância da automação, aplicações em nuvem e tecnologias de blockchain na análise de dados. Essas ferramentas impulsionam a demanda por analistas capazes de construir soluções escaláveis e inovadoras em ambientes tecnológicos dinâmicos.
+- **Ferramentas de Comunicação e Colaboração:** A inclusão de plataformas como **Zoom** reflete a mudança do setor para ambientes de trabalho remotos e híbridos, onde ferramentas fortes de colaboração são essenciais. Analistas com expertise em ferramentas que suportam comunicação virtual e colaboração em equipe estão bem posicionados para oportunidades bem remuneradas na força de trabalho digital de hoje.
+
+
 
 | Skills        | Average Salary ($) |
 | ------------- | -----------------: |
-| pyspark       |            208,172 |
-| bitbucket     |            189,155 |
-| couchbase     |            160,515 |
-| watson        |            160,515 |
-| datarobot     |            155,486 |
-| gitlab        |            154,500 |
-| swift         |            153,750 |
-| jupyter       |            152,777 |
-| pandas        |            151,821 |
-| elasticsearch |            145,000 |
+| neo4j         |           215616,25|
+| airtable      |           215500,00|
+| watson        |           214250,00|
+| rshiny        |           205357,14|
+| zoom          |           190000,00|
+| solidity      |           175000,00|
+| lua           |           170500,00|
+| clojure       |           170500,00|
+| objective-c   |           164500,00|
+| node          |           157500,00|
 
-_Table of the average salary for the top 10 paying skills for data analysts_
+_Tabela com a média salarial para as 10 habilidades bem mais pagas para cargos em Ciência de Dados._
 
-### 5. Most Optimal Skills to Learn
+### 5. Melhores habilidades para se aprender
 
-Combining insights from demand and salary data, this query aimed to pinpoint skills that are both in high demand and have high salaries, offering a strategic focus for skill development.
+Combinando insights dos dados de demanda e salários, essa análise teve como objetivo identificar as habilidades que são tanto altamente demandadas quanto bem remuneradas, oferecendo um foco estratégico para o desenvolvimento de habilidades.
 
 ```sql
-SELECT
+SELECT 
     skills_dim.skill_id,
     skills_dim.skills,
     COUNT(skills_job_dim.job_id) AS demand_count,
@@ -201,9 +210,9 @@ FROM job_postings_fact
 INNER JOIN skills_job_dim ON job_postings_fact.job_id = skills_job_dim.job_id
 INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
 WHERE
-    job_title_short = 'Data Analyst'
+    job_title_short = 'Data Scientist'
     AND salary_year_avg IS NOT NULL
-    AND job_work_from_home = True
+    AND job_work_from_home = True 
 GROUP BY
     skills_dim.skill_id
 HAVING
@@ -214,48 +223,49 @@ ORDER BY
 LIMIT 25;
 ```
 
-| Skill ID | Skills     | Demand Count | Average Salary ($) |
-| -------- | ---------- | ------------ | -----------------: |
-| 8        | go         | 27           |            115,320 |
-| 234      | confluence | 11           |            114,210 |
-| 97       | hadoop     | 22           |            113,193 |
-| 80       | snowflake  | 37           |            112,948 |
-| 74       | azure      | 34           |            111,225 |
-| 77       | bigquery   | 13           |            109,654 |
-| 76       | aws        | 32           |            108,317 |
-| 4        | java       | 17           |            106,906 |
-| 194      | ssis       | 12           |            106,683 |
-| 233      | jira       | 20           |            104,918 |
+| Skill        | Demand Count | Average Salary |
+|--------------|--------------|----------------|
+| C            | 48           | 164,865        |
+| Go           | 57           | 164,691        |
+| Qlik         | 15           | 164,485        |
+| Looker       | 57           | 158,715        |
+| Airflow      | 23           | 157,414        |
+| BigQuery     | 36           | 157,142        |
+| Scala        | 56           | 156,702        |
+| GCP          | 59           | 155,811        |
+| Snowflake    | 72           | 152,687        |
+| Pytorch      | 115          | 152,603        |
 
-_Table of the most optimal skills for data analyst sorted by salary_
+_Tabela das melhores habilidades para ciêntista de dados ordenadas por salário_
 
-Here's a breakdown of the most optimal skills for Data Analysts in 2023:
+Aqui está a divisão das habilidades mais ótimas para analistas de dados em 2023:
 
-- **High-Demand Programming Languages:** Python and R stand out for their high demand, with demand counts of 236 and 148 respectively. Despite their high demand, their average salaries are around $101,397 for Python and $100,499 for R, indicating that proficiency in these languages is highly valued but also widely available.
-- **Cloud Tools and Technologies:** Skills in specialized technologies such as Snowflake, Azure, AWS, and BigQuery show significant demand with relatively high average salaries, pointing towards the growing importance of cloud platforms and big data technologies in data analysis.
-- **Business Intelligence and Visualization Tools:** Tableau and Looker, with demand counts of 230 and 49 respectively, and average salaries around $99,288 and $103,795, highlight the critical role of data visualization and business intelligence in deriving actionable insights from data.
-- **Database Technologies:** The demand for skills in traditional and NoSQL databases (Oracle, SQL Server, NoSQL) with average salaries ranging from $97,786 to $104,534, reflects the enduring need for data storage, retrieval, and management expertise.
+- **Linguagens de Programação de Alta Demanda:** **C** e **Go** são as linguagens mais requisitadas, com contagens de demanda de 48 e 57, respectivamente. Ambas possuem salários médios elevados, com Go alcançando $164,691 e C $164,865. Isso destaca a alta valorização dessas linguagens, que são essenciais para o desenvolvimento de sistemas e software de alto desempenho.
+- **Ferramentas de Visualização e Business Intelligence:** **Qlik** e **Looker** são bastante demandadas, com salários médios de $164,485 e $158,715, respectivamente. Ambas as ferramentas são essenciais para a criação de dashboards e insights estratégicos a partir de grandes volumes de dados, refletindo a crescente importância das ferramentas de BI na análise de dados empresariais.
+- **Tecnologias de Processamento de Dados e Cloud:** **Airflow**, **BigQuery** e **GCP** são altamente requisitados, com salários médios variando de $157,142 para BigQuery a $157,414 para **Airflow** e $155,811 para **GCP**. Esses números refletem a demanda crescente por ferramentas de orquestração de dados, análise em larga escala e soluções de cloud computing, essenciais para empresas que lidam com grandes volumes de dados.
+- **Plataformas de Big Data e Machine Learning:** **Scala** e **Pytorch** se destacam com a demanda crescente em áreas de big data e machine learning, com salários médios de $156,702 para **Scala** e $152,603 para **Pytorch**. Esses dados apontam para a crescente valorização de habilidades em linguagens e frameworks usados para processamento de dados complexos e desenvolvimento de modelos preditivos.
+- **Armazenamento e Análise de Dados em Nuvem:** **Snowflake** é a plataforma de análise em nuvem mais demandada, com um salário médio de $152,687, refletindo o aumento na necessidade de ferramentas que integrem armazenamento e análise de dados em tempo real, especialmente em ambientes de big data.
 
-# What I Learned
+# O que eu aprendi
 
-Throughout this adventure, I've turbocharged my SQL toolkit with some serious firepower:
+Ao longo dessa jornada, turbinei meu conjunto de ferramentas SQL com um poder de fogo considerável:
 
-- **🧩 Complex Query Crafting:** Mastered the art of advanced SQL, merging tables like a pro and wielding WITH clauses for ninja-level temp table maneuvers.
-- **📊 Data Aggregation:** Got cozy with GROUP BY and turned aggregate functions like COUNT() and AVG() into my data-summarizing sidekicks.
-- **💡 Analytical Wizardry:** Leveled up my real-world puzzle-solving skills, turning questions into actionable, insightful SQL queries.
+- **🧩 Criação de Consultas Complexas:** Dominei a arte do SQL avançado, combinando tabelas como um profissional e utilizando cláusulas WITH para manobras de tabelas temporárias em nível ninja.
+- **📊 Agregação de Dados:** Me tornei íntimo do GROUP BY e transformei funções agregadas como COUNT() e AVG() em meus aliados para resumir dados.
+- **💡 Magia Analítica:** Aprimorei minhas habilidades de resolução de problemas no mundo real, transformando perguntas em consultas SQL acionáveis e perspicazes.
 
-# Conclusions
+# Conclusões
 
 ### Insights
 
 From the analysis, several general insights emerged:
 
-1. **Top-Paying Data Analyst Jobs**: The highest-paying jobs for data analysts that allow remote work offer a wide range of salaries, the highest at $650,000!
-2. **Skills for Top-Paying Jobs**: High-paying data analyst jobs require advanced proficiency in SQL, suggesting it’s a critical skill for earning a top salary.
-3. **Most In-Demand Skills**: SQL is also the most demanded skill in the data analyst job market, thus making it essential for job seekers.
-4. **Skills with Higher Salaries**: Specialized skills, such as SVN and Solidity, are associated with the highest average salaries, indicating a premium on niche expertise.
-5. **Optimal Skills for Job Market Value**: SQL leads in demand and offers for a high average salary, positioning it as one of the most optimal skills for data analysts to learn to maximize their market value.
+1. **Empregos com maiores salários em ciência de dados**:  As vagas mais bem remuneradas para ciêntista de dados que oferecem trabalho remoto apresentam uma ampla variedade de salários, sendo o mais alto de $375.000!
+2. **Habilidades para os empregos com maiores salários**: Vagas de ciêntista de dados bem remuneradas exigem proficiência avançada em Python, sugerindo que essa é uma habilidade crucial para alcançar um salário elevado.
+3. **Habilidades mais Demandadas**: Python também é a habilidade mais requisitada no mercado de trabalho para ciêntista de dados, tornando-a essencial para os candidatos a vagas.
+4. **Habilidades com Salários Mais Altos:** Habilidades especializadas, como **neo4j** e **airtable**, estão associadas aos salários médios mais altos, indicando um valor elevado para a expertise em nichos específicos.
+5. **Melhores Habilidades para se aprender.**: C lidera em demanda e oferece um alto salário médio, posicionando-se como uma das habilidades mais ótimas para ciêntista de dados aprenderem a fim de maximizar seu valor no mercado.
 
-### Closing Thoughts
+### Considerações Finais
 
-This project enhanced my SQL skills and provided valuable insights into the data analyst job market. The findings from the analysis serve as a guide to prioritizing skill development and job search efforts. Aspiring data analysts can better position themselves in a competitive job market by focusing on high-demand, high-salary skills. This exploration highlights the importance of continuous learning and adaptation to emerging trends in the field of data analytics.
+Este projeto aprimorou minhas habilidades em SQL e forneceu insights valiosos sobre o mercado de trabalho para ciêntista de dados. Os resultados da análise servem como um guia para priorizar o desenvolvimento de habilidades e os esforços na busca por emprego. Ciêntistas de dados em potencial podem se posicionar melhor em um mercado de trabalho competitivo ao focar nas habilidades de alta demanda e alto salário. Esta exploração destaca a importância do aprendizado contínuo e da adaptação às tendências emergentes no campo da ciência de dados.
