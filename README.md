@@ -258,7 +258,7 @@ Ao longo dessa jornada, turbinei meu conjunto de ferramentas SQL com um poder de
 
 ### Insights
 
-From the analysis, several general insights emerged:
+Desta análise, conseguimos retirar alguns insights: 
 
 1. **Empregos com maiores salários em ciência de dados**:  As vagas mais bem remuneradas para ciêntista de dados que oferecem trabalho remoto apresentam uma ampla variedade de salários, sendo o mais alto de $375.000!
 2. **Habilidades para os empregos com maiores salários**: Vagas de ciêntista de dados bem remuneradas exigem proficiência avançada em Python, sugerindo que essa é uma habilidade crucial para alcançar um salário elevado.
