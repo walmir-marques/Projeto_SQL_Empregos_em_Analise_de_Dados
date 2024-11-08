@@ -238,7 +238,7 @@ LIMIT 25;
 
 _Tabela das melhores habilidades para ciêntista de dados ordenadas por salário_
 
-Aqui está a divisão das habilidades mais ótimas para analistas de dados em 2023:
+Aqui está a divisão das habilidades mais ótimas para ciêntistas de dados em 2023:
 
 - **Linguagens de Programação de Alta Demanda:** **C** e **Go** são as linguagens mais requisitadas, com contagens de demanda de 48 e 57, respectivamente. Ambas possuem salários médios elevados, com Go alcançando $164,691 e C $164,865. Isso destaca a alta valorização dessas linguagens, que são essenciais para o desenvolvimento de sistemas e software de alto desempenho.
 - **Ferramentas de Visualização e Business Intelligence:** **Qlik** e **Looker** são bastante demandadas, com salários médios de $164,485 e $158,715, respectivamente. Ambas as ferramentas são essenciais para a criação de dashboards e insights estratégicos a partir de grandes volumes de dados, refletindo a crescente importância das ferramentas de BI na análise de dados empresariais.
